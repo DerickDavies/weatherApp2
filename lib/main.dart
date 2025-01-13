@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/ui/Weather/widget/home_page_river.dart';
+import 'package:weather_app/ui/Weather/widget/tabs_screen.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
@@ -13,8 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:
-          HomePageRiver(), // This trailing comma makes auto-formatting nicer for build methods.
+      home: TabsScreen(),
     );
   }
 }
