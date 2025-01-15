@@ -17,7 +17,7 @@ class _CityWeatherRiverState extends ConsumerState<CityWeatherRiver> {
   final countryCodeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final weatherNotiferProvider = ref.watch(cityWeatherNotifierProvider);
+    final weatherNotifierProvider = ref.watch(cityWeatherNotifierProvider);
 
     // For snackbar or toast
     ref.listen(
@@ -38,7 +38,6 @@ class _CityWeatherRiverState extends ConsumerState<CityWeatherRiver> {
       },
     );
 
-    print("Hello world");
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,7 +130,7 @@ class _CityWeatherRiverState extends ConsumerState<CityWeatherRiver> {
             alignment: Alignment.center,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: weatherNotiferProvider.when(
+              child: weatherNotifierProvider.when(
                 data: (data) {
                   if (data == null) {
                     return const Text("No data found");

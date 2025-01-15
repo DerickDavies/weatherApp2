@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "346601670649",
+    "firebase_url": "https://flutter-reprep-default-rtdb.firebaseio.com",
+    "project_id": "flutter-reprep",
+    "storage_bucket": "flutter-reprep.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346601670649:android:d878cb20f1de52f772df28",
+        "android_client_info": {
+          "package_name": "com.example.forms_backend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346601670649-t6ot46cn2hpfg32pr9ea03c4ca5jlhbd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAijD2Kqn0iarLaRvf5E0g51IxJlr0yb7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346601670649-t6ot46cn2hpfg32pr9ea03c4ca5jlhbd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "346601670649-0qmkhq6t1uilo4lnqi40v5s2g7skm28j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.formsBackend"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346601670649:android:0ff24c047c43052272df28",
+        "android_client_info": {
+          "package_name": "com.example.weather_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346601670649-rlnt4k80verk3rg6t2dgmlhrk84368vr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.weather_app",
+            "certificate_hash": "667655bbe4dbebe571da4bd19f59817a9860c92f"
+          }
+        },
+        {
+          "client_id": "346601670649-t6ot46cn2hpfg32pr9ea03c4ca5jlhbd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAijD2Kqn0iarLaRvf5E0g51IxJlr0yb7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346601670649-t6ot46cn2hpfg32pr9ea03c4ca5jlhbd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "346601670649-0qmkhq6t1uilo4lnqi40v5s2g7skm28j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.formsBackend"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

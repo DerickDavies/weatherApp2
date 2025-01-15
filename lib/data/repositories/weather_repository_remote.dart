@@ -42,7 +42,8 @@ class WeatherRepositoryRemote implements WeatherRepository {
     return GeoLocation(lat: data[0]['lat'], lon: data[0]['lon']);
   }
 
-  @override
+  @override //Since this is a separate service, you may put it in another repository.
+  // But this is a basic functionality. So its just enough to put it in a riverpod notifier.
   Future<Position> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;

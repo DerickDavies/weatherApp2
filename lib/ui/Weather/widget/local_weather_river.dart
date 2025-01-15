@@ -13,6 +13,23 @@ class LocalWeatherRiverState extends ConsumerState<LocalWeatherRiver> {
   @override
   Widget build(BuildContext context) {
     final localWeatherNotifier = ref.watch(localWeatherNotifierProvider);
+    ref.listen(
+      localWeatherNotifierProvider,
+      (previous, next) {
+        next.whenOrNull(
+          data: (data) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Data loaded successfully')),
+            );
+          },
+          error: (error, stackTrace) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(error.toString())),
+            );
+          },
+        );
+      },
+    );
     return SingleChildScrollView(
       child: Column(
         children: [
