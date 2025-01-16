@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:weather_app/data/repositories/auth_repository.dart';
+import 'package:weather_app/domain/models/app_user_model.dart';
 
 class AuthRepositoryRemote implements AuthRepository {
   @override
-  Future<UserCredential> createUser({
+  Future<AppUserModel> createUser({
     required String email,
     required String password,
   }) async {
@@ -16,11 +17,11 @@ class AuthRepositoryRemote implements AuthRepository {
       password: password,
     );
 
-    return userCredential;
+    return AppUserModel(email: userCredential.user!.email!);
   }
 
   @override
-  Future<UserCredential> loginUser({
+  Future<AppUserModel> loginUser({
     required String email,
     required String password,
   }) async {
@@ -30,10 +31,10 @@ class AuthRepositoryRemote implements AuthRepository {
       password: password,
     );
 
-    return userCredential;
+    return AppUserModel(email: userCredential.user!.email!);
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<AppUserModel> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication? googleAuth =
@@ -47,7 +48,7 @@ class AuthRepositoryRemote implements AuthRepository {
     final userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    return userCredential;
+    return AppUserModel(email: userCredential.user!.email!);
   }
 
   @override

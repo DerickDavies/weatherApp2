@@ -1,20 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:weather_app/data/repositories/auth_repository.dart';
 import 'package:weather_app/data/repositories/auth_repository_remote.dart';
 import 'package:weather_app/ui/Weather/widget/authentication_screen.dart';
 import 'package:weather_app/ui/Weather/widget/city_weather_river.dart';
 import 'package:weather_app/ui/Weather/widget/local_weather_river.dart';
 import 'package:weather_app/ui/Weather/widget/profile_page.dart';
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
   var _currentActiveScreenIndex = 0;
 
   void _selectPage(int index) {
@@ -25,6 +27,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authenticationProvider = ref.read(authRepositoryProvider);
+
     Widget activePage = CityWeatherRiver();
 
     if (_currentActiveScreenIndex == 1) {
@@ -42,7 +46,7 @@ class _TabsScreenState extends State<TabsScreen> {
           IconButton(
             onPressed: () {
               try {
-                AuthRepositoryRemote().signOut();
+                authenticationProvider.signOut();
 
                 Navigator.pushReplacement(
                   context,
