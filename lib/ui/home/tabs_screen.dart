@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:weather_app/data/repositories/auth_repository.dart';
-import 'package:weather_app/ui/Weather/widget/authentication_screen.dart';
-import 'package:weather_app/ui/Weather/widget/city_weather_river.dart';
-import 'package:weather_app/ui/Weather/widget/local_weather_river.dart';
-import 'package:weather_app/ui/Weather/widget/profile_page.dart';
+import 'package:weather_app/data/repositories/auth/auth_repository.dart';
+import 'package:weather_app/ui/auth/authentication_screen.dart';
+import 'package:weather_app/ui/home/city_weather/city_weather_river.dart';
+import 'package:weather_app/ui/home/local_weather/local_weather_river.dart';
+import 'package:weather_app/ui/home/profile/profile_page.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});

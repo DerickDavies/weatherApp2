@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:weather_app/data/repositories/auth_repository_remote.dart';
+import 'package:weather_app/data/repositories/auth/auth_repository_remote.dart';
 import 'package:weather_app/domain/models/app_user_model.dart';
 
 part 'auth_repository.g.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/data/repositories/auth_repository.dart';
+import 'package:weather_app/data/repositories/auth/auth_repository.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});

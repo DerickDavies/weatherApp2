@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/ui/Weather/view_model/city_weather_notifier.dart';
+import 'package:weather_app/ui/home/city_weather/view_model/city_weather_notifier.dart';
 
 class CityWeatherRiver extends ConsumerStatefulWidget {
   CityWeatherRiver({super.key});
