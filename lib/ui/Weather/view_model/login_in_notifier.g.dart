@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_repository.dart';
+part of 'login_in_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authRepositoryHash() => r'32c05d92073c48b6a4beac619b45fe8fd82297df';
+String _$loginInNotifierHash() => r'81b5400023a1ef690d3d293c0fc6bcdb6ff954ec';
 
-/// See also [authRepository].
-@ProviderFor(authRepository)
-final authRepositoryProvider = Provider<AuthRepository>.internal(
-  authRepository,
-  name: r'authRepositoryProvider',
+/// See also [LoginInNotifier].
+@ProviderFor(LoginInNotifier)
+final loginInNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<LoginInNotifier, AppUserModel?>.internal(
+  LoginInNotifier.new,
+  name: r'loginInNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authRepositoryHash,
+      : _$loginInNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef AuthRepositoryRef = ProviderRef<AuthRepository>;
+typedef _$LoginInNotifier = AutoDisposeAsyncNotifier<AppUserModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

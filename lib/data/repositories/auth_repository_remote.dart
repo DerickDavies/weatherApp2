@@ -63,7 +63,7 @@ class AuthRepositoryRemote implements AuthRepository {
   }
 
   @override
-  User? currentAuth() {
-    return FirebaseAuth.instance.currentUser;
+  AppUserModel? currentAuth() {
+    return AppUserModel(email: FirebaseAuth.instance.currentUser!.email!);
   }
 }

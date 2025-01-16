@@ -1,0 +1,31 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:weather_app/data/repositories/auth_repository.dart';
+import 'package:weather_app/domain/models/app_user_model.dart';
+part 'auth_notifier.g.dart';
+
+@riverpod
+class AuthNotifier extends _$AuthNotifier {
+  late final _repo = ref.read(authRepositoryProvider);
+
+  @override
+  FutureOr<AppUserModel?> build() {
+    return null;
+  }
+
+  checkAuth() async {
+    state = AsyncValue.loading();
+
+    state = await AsyncValue.guard(
+      () async {
+        bool isLoggedIn = _repo.checkAuth();
+        print("Checking if logged in: $isLoggedIn");
+
+        if (isLoggedIn) {
+          return _repo.currentAuth();
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+}

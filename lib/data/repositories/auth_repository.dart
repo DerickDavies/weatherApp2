@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:weather_app/data/repositories/auth_repository_remote.dart';
@@ -20,7 +19,7 @@ abstract class AuthRepository {
   bool checkAuth();
   Future<AppUserModel> signInWithGoogle();
   Future<void> signOut();
-  User? currentAuth();
+  AppUserModel? currentAuth();
 }
 
 @Riverpod(keepAlive: true)

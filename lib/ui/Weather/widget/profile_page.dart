@@ -38,7 +38,7 @@ class ProfilePage extends ConsumerWidget {
                 height: 10,
               ),
               Text(
-                ref.read(authRepositoryProvider).currentAuth()!.email!,
+                ref.read(authRepositoryProvider).currentAuth()!.email,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:weather_app/data/repositories/auth_repository.dart';
-import 'package:weather_app/data/repositories/auth_repository_remote.dart';
 import 'package:weather_app/ui/Weather/widget/authentication_screen.dart';
 import 'package:weather_app/ui/Weather/widget/city_weather_river.dart';
 import 'package:weather_app/ui/Weather/widget/local_weather_river.dart';
