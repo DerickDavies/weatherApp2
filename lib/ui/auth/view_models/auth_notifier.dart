@@ -19,7 +19,6 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(
       () async {
         bool isLoggedIn = _repo.checkAuth();
-        print("Checking if logged in: $isLoggedIn");
 
         if (isLoggedIn) {
           return _repo.currentAuth();
