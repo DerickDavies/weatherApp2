@@ -11,7 +11,7 @@ class Authentication extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(
-      Duration.zero,
+      Duration(seconds: 2),
       () {
         ref.read(authNotifierProvider.notifier).checkAuth();
       },
