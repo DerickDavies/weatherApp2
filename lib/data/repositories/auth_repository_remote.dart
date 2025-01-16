@@ -3,31 +3,37 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:weather_app/data/repositories/auth_repository.dart';
 
-class Authentication extends AuthRepository {
+class AuthRepositoryRemote implements AuthRepository {
   @override
-  createUser({
+  Future<UserCredential> createUser({
     required String email,
     required String password,
   }) async {
     // try {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+
+    return userCredential;
   }
 
   @override
-  loginUser({
+  Future<UserCredential> loginUser({
     required String email,
     required String password,
   }) async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    final userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
+
+    return userCredential;
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication? googleAuth =
@@ -38,7 +44,10 @@ class Authentication extends AuthRepository {
       idToken: googleAuth?.idToken,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    return userCredential;
   }
 
   @override
@@ -50,5 +59,10 @@ class Authentication extends AuthRepository {
   bool checkAuth() {
     final user = FirebaseAuth.instance.currentUser;
     return (user == null) ? false : true;
+  }
+
+  @override
+  User? currentAuth() {
+    return FirebaseAuth.instance.currentUser;
   }
 }

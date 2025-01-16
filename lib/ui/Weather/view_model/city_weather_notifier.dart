@@ -22,12 +22,12 @@ class CityWeatherNotifier extends _$CityWeatherNotifier {
       final geoData = await _repo.getGeoCode(
           cityName: cityName, countryCode: countryCode, stateCode: stateCode);
 
-      final weather =
-          await _repo.fetchWeatherData(lat: (geoData.lat), lon: (geoData.lon));
+      final weather = await _repo.fetchWeatherData(
+        lat: (geoData.lat),
+        lon: (geoData.lon),
+      );
 
       return weather;
     });
   }
-
 }
-

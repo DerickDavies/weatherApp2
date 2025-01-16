@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:weather_app/data/repositories/authentication.dart';
+import 'package:weather_app/data/repositories/auth_repository_remote.dart';
 import 'package:weather_app/ui/Weather/widget/authentication_screen.dart';
 import 'package:weather_app/ui/Weather/widget/city_weather_river.dart';
 import 'package:weather_app/ui/Weather/widget/local_weather_river.dart';
+import 'package:weather_app/ui/Weather/widget/profile_page.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -29,6 +29,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
     if (_currentActiveScreenIndex == 1) {
       activePage = LocalWeatherRiver();
+    } else if (_currentActiveScreenIndex == 2) {
+      activePage = ProfilePage();
     }
 
     return Scaffold(
@@ -40,7 +42,7 @@ class _TabsScreenState extends State<TabsScreen> {
           IconButton(
             onPressed: () {
               try {
-                Authentication().signOut();
+                AuthRepositoryRemote().signOut();
 
                 Navigator.pushReplacement(
                   context,
@@ -75,6 +77,10 @@ class _TabsScreenState extends State<TabsScreen> {
             icon: Icon(Icons.my_location_rounded),
             label: "Local Weather",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          )
         ],
       ),
       body: Padding(

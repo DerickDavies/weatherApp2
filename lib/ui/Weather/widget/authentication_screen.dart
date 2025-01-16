@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:weather_app/data/repositories/authentication.dart';
+import 'package:weather_app/data/repositories/auth_repository.dart';
+import 'package:weather_app/data/repositories/auth_repository_remote.dart';
 import 'package:weather_app/ui/Weather/widget/tabs_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final userInstance = FirebaseAuth.instance;
 
-class AuthenticationScreen extends StatefulWidget {
+class AuthenticationScreen extends ConsumerStatefulWidget {
   const AuthenticationScreen({super.key});
 
   @override
-  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
+  ConsumerState<AuthenticationScreen> createState() =>
+      _AuthenticationScreenState();
 }
 
-class _AuthenticationScreenState extends State<AuthenticationScreen> {
+class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   final _formkey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -22,7 +25,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   bool accountExists = false;
 
   void checkAuthentication() {
-    isLoggedIn = Authentication().checkAuth();
+    isLoggedIn = AuthRepositoryRemote().checkAuth();
   }
 
   @override
@@ -33,6 +36,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authenticationProvider = ref.read(authRepositoryProvider);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(137, 115, 115, 116),
       body: isLoggedIn
@@ -46,7 +51,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "lib/assets/images/cloud.png",
+                        "assets/images/cloud.png",
                         width: 250,
                         height: 250,
                       ),
@@ -147,7 +152,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                     if (_formkey.currentState!.validate()) {
                                       if (accountExists) {
                                         try {
-                                          await Authentication().createUser(
+                                          await authenticationProvider
+                                              .createUser(
                                             email: _emailController.text,
                                             password: _passwordController.text,
                                           );
@@ -183,7 +189,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         }
                                       } else {
                                         try {
-                                          await Authentication().loginUser(
+                                          await authenticationProvider
+                                              .loginUser(
                                             email: _emailController.text,
                                             password: _passwordController.text,
                                           );
@@ -274,7 +281,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                 ElevatedButton.icon(
                                   onPressed: () async {
                                     try {
-                                      await Authentication().signInWithGoogle();
+                                      await authenticationProvider
+                                          .signInWithGoogle();
 
                                       Navigator.pushReplacement(
                                         context,
@@ -295,7 +303,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                   },
                                   label: Text("Sign in with Google"),
                                   icon: Image.asset(
-                                    "lib/assets/images/google.png",
+                                    "assets/images/google.png",
                                     height: 35,
                                     width: 35,
                                   ),
