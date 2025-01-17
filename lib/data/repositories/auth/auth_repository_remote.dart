@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:weather_app/data/repositories/auth_repository.dart';
+import 'package:weather_app/data/repositories/auth/auth_repository.dart';
 import 'package:weather_app/domain/models/app_user_model.dart';
 
 class AuthRepositoryRemote implements AuthRepository {

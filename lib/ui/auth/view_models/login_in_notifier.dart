@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:weather_app/data/repositories/auth_repository.dart';
+import 'package:weather_app/data/repositories/auth/auth_repository.dart';
 import 'package:weather_app/domain/models/app_user_model.dart';
 
 part 'login_in_notifier.g.dart';

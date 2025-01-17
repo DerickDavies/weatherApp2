@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:weather_app/data/repositories/auth_repository.dart';
-import 'package:weather_app/ui/Weather/view_model/login_in_notifier.dart';
-import 'package:weather_app/ui/Weather/view_model/sign_up_notifier.dart';
-import 'package:weather_app/ui/Weather/widget/tabs_screen.dart';
+import 'package:weather_app/data/repositories/auth/auth_repository.dart';
+import 'package:weather_app/ui/auth/view_models/login_in_notifier.dart';
+import 'package:weather_app/ui/auth/view_models/sign_up_notifier.dart';
+import 'package:weather_app/ui/home/tabs_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final userInstance = FirebaseAuth.instance;
