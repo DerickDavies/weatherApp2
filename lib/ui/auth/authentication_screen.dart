@@ -33,75 +33,70 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
     ref.listen(
       loginInNotifierProvider,
       (previous, next) {
-        next.when(
-            data: (data) {
-              if (data != null) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TabsScreen(),
-                  ),
-                );
-              }
-            },
-            error: (e, stackTrace) {
-              String message = '';
-
-              if (e == 'invalid-email') {
-                message = 'No user found for that email';
-              } else if (e == 'invalid-credential') {
-                message = 'Wrong password provided for that user';
-              }
-
-              Fluttertoast.showToast(
-                msg: message,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.SNACKBAR,
-                backgroundColor: Colors.black54,
-                textColor: Colors.white,
-                fontSize: 14,
+        next.whenOrNull(
+          data: (data) {
+            if (data != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TabsScreen(),
+                ),
               );
-            },
-            loading: () {});
+            }
+          },
+          error: (e, stackTrace) {
+            String message = 'Something went wrong, \n Error : $e';
+
+            if (e is FirebaseAuthException) {
+              message = e.message ?? message;
+            }
+            Fluttertoast.showToast(
+              timeInSecForIosWeb: 3,
+              msg: message,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.SNACKBAR,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 14,
+            );
+          },
+        );
       },
     );
 
     ref.listen(
       signUpNotifierProvider,
       (previous, next) {
-        next.when(
-            data: (data) async {
-              if (data != null) {
-                await Future.delayed(Duration(seconds: 2));
+        next.whenOrNull(
+          data: (data) async {
+            if (data != null) {
+              await Future.delayed(Duration(seconds: 2));
 
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TabsScreen(),
-                  ),
-                );
-              }
-            },
-            error: (e, stackTrace) {
-              print(e);
-              String message = '';
-              if (e == 'weak-password') {
-                message = 'The password provided is too weak';
-              } else if (e == 'email-already-in-use') {
-                message = 'An account already exists with that email';
-              } else {
-                message = 'Something went wrong';
-              }
-              Fluttertoast.showToast(
-                msg: message,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.SNACKBAR,
-                backgroundColor: Colors.black54,
-                textColor: Colors.white,
-                fontSize: 14,
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TabsScreen(),
+                ),
               );
-            },
-            loading: () {});
+            }
+          },
+          error: (e, stackTrace) {
+            String message = 'Something went wrong, \n Error : $e';
+
+            if (e is FirebaseAuthException) {
+              message = e.message ?? message;
+            }
+            Fluttertoast.showToast(
+              timeInSecForIosWeb: 3,
+              msg: message,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.SNACKBAR,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 14,
+            );
+          },
+        );
       },
     );
 
@@ -282,16 +277,22 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
                             onPressed: () async {
                               try {
                                 await authenticationProvider.signInWithGoogle();
-
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => TabsScreen(),
                                   ),
                                 );
-                              } on FirebaseAuthException catch (e) {
+                              } catch (e) {
+                                String message =
+                                    'Something went wrong, \n Error : $e';
+
+                                if (e is FirebaseAuthException) {
+                                  message = e.message ?? message;
+                                }
                                 Fluttertoast.showToast(
-                                  msg: e.code,
+                                  timeInSecForIosWeb: 3,
+                                  msg: message,
                                   toastLength: Toast.LENGTH_LONG,
                                   gravity: ToastGravity.SNACKBAR,
                                   backgroundColor: Colors.black54,
