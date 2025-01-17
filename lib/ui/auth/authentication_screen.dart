@@ -41,6 +41,24 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
                 MaterialPageRoute(
                   builder: (context) => TabsScreen(),
                 ),
+                );
+              }
+            },
+            error: (e, stackTrace) {
+              String message = 'Something went wrong, \n Error : $e';
+
+              if (e is FirebaseAuthException) {
+                message = e.message ?? message;
+              }
+
+              Fluttertoast.showToast(
+                msg: message,
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.SNACKBAR,
+                backgroundColor: Colors.black54,
+                textColor: Colors.white,
+                fontSize: 14,
+
               );
             }
           },
