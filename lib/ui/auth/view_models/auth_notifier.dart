@@ -28,4 +28,8 @@ class AuthNotifier extends _$AuthNotifier {
       },
     );
   }
+
+  signOut() {
+    _repo.signOut();
+  }
 }

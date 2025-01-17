@@ -45,12 +45,10 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
               }
             },
             error: (e, stackTrace) {
-              String message = '';
+              String message = 'Something went wrong, \n Error : $e';
 
-              if (e == 'invalid-email') {
-                message = 'No user found for that email';
-              } else if (e == 'invalid-credential') {
-                message = 'Wrong password provided for that user';
+              if (e is FirebaseAuthException) {
+                message = e.message ?? message;
               }
 
               Fluttertoast.showToast(
@@ -70,38 +68,36 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
       signUpNotifierProvider,
       (previous, next) {
         next.when(
-            data: (data) async {
-              if (data != null) {
-                await Future.delayed(Duration(seconds: 2));
+          data: (data) async {
+            if (data != null) {
+              await Future.delayed(Duration(seconds: 2));
 
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TabsScreen(),
-                  ),
-                );
-              }
-            },
-            error: (e, stackTrace) {
-              print(e);
-              String message = '';
-              if (e == 'weak-password') {
-                message = 'The password provided is too weak';
-              } else if (e == 'email-already-in-use') {
-                message = 'An account already exists with that email';
-              } else {
-                message = 'Something went wrong';
-              }
-              Fluttertoast.showToast(
-                msg: message,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.SNACKBAR,
-                backgroundColor: Colors.black54,
-                textColor: Colors.white,
-                fontSize: 14,
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TabsScreen(),
+                ),
               );
-            },
-            loading: () {});
+            }
+          },
+          error: (e, stackTrace) {
+            String message = 'Something went wrong, \n Error : $e';
+
+            if (e is FirebaseAuthException) {
+              message = e.message ?? message;
+            }
+
+            Fluttertoast.showToast(
+              msg: message,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.SNACKBAR,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 14,
+            );
+          },
+          loading: () {},
+        );
       },
     );
 
