@@ -18,6 +18,7 @@ class LoginInNotifier extends _$LoginInNotifier {
   }) async {
     state = AsyncValue.loading();
 
+
     state = await AsyncValue.guard(
       () async {
         return await _repo.loginUser(email: email, password: password);
@@ -26,6 +27,7 @@ class LoginInNotifier extends _$LoginInNotifier {
 
     // try {
     //   final user = await _repo.loginUser(email: email, password: password);
+
     //   state = AsyncValue.data(user); // Update state with the successful result
     // } on FirebaseAuthException catch (e, stackTrace) {
     //   state = AsyncValue.error(
@@ -33,5 +35,12 @@ class LoginInNotifier extends _$LoginInNotifier {
     //     stackTrace,
     //   ); // Pass the exception object and stack trace
     // }
+
+    state = await AsyncValue.guard(
+      () async {
+        final user = await _repo.loginUser(email: email, password: password);
+        return user;
+      },
+    );
   }
 }

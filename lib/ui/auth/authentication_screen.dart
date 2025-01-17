@@ -33,14 +33,14 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
     ref.listen(
       loginInNotifierProvider,
       (previous, next) {
-        next.when(
-            data: (data) {
-              if (data != null) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TabsScreen(),
-                  ),
+        next.whenOrNull(
+          data: (data) {
+            if (data != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TabsScreen(),
+                ),
                 );
               }
             },
@@ -58,16 +58,34 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
                 backgroundColor: Colors.black54,
                 textColor: Colors.white,
                 fontSize: 14,
+
               );
-            },
-            loading: () {});
+            }
+          },
+          error: (e, stackTrace) {
+            String message = 'Something went wrong, \n Error : $e';
+
+            if (e is FirebaseAuthException) {
+              message = e.message ?? message;
+            }
+            Fluttertoast.showToast(
+              timeInSecForIosWeb: 3,
+              msg: message,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.SNACKBAR,
+              backgroundColor: Colors.black54,
+              textColor: Colors.white,
+              fontSize: 14,
+            );
+          },
+        );
       },
     );
 
     ref.listen(
       signUpNotifierProvider,
       (previous, next) {
-        next.when(
+        next.whenOrNull(
           data: (data) async {
             if (data != null) {
               await Future.delayed(Duration(seconds: 2));
@@ -86,8 +104,8 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
             if (e is FirebaseAuthException) {
               message = e.message ?? message;
             }
-
             Fluttertoast.showToast(
+              timeInSecForIosWeb: 3,
               msg: message,
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.SNACKBAR,
@@ -96,7 +114,6 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
               fontSize: 14,
             );
           },
-          loading: () {},
         );
       },
     );
@@ -278,16 +295,22 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
                             onPressed: () async {
                               try {
                                 await authenticationProvider.signInWithGoogle();
-
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => TabsScreen(),
                                   ),
                                 );
-                              } on FirebaseAuthException catch (e) {
+                              } catch (e) {
+                                String message =
+                                    'Something went wrong, \n Error : $e';
+
+                                if (e is FirebaseAuthException) {
+                                  message = e.message ?? message;
+                                }
                                 Fluttertoast.showToast(
-                                  msg: e.code,
+                                  timeInSecForIosWeb: 3,
+                                  msg: message,
                                   toastLength: Toast.LENGTH_LONG,
                                   gravity: ToastGravity.SNACKBAR,
                                   backgroundColor: Colors.black54,
