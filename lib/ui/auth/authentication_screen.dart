@@ -30,6 +30,81 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
     final _login = ref.read(loginInNotifierProvider.notifier);
     final authenticationProvider = ref.read(authRepositoryProvider);
 
+    ref.listen(
+      loginInNotifierProvider,
+      (previous, next) {
+        next.when(
+            data: (data) {
+              if (data != null) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TabsScreen(),
+                  ),
+                );
+              }
+            },
+            error: (e, stackTrace) {
+              String message = '';
+
+              if (e == 'invalid-email') {
+                message = 'No user found for that email';
+              } else if (e == 'invalid-credential') {
+                message = 'Wrong password provided for that user';
+              }
+
+              Fluttertoast.showToast(
+                msg: message,
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.SNACKBAR,
+                backgroundColor: Colors.black54,
+                textColor: Colors.white,
+                fontSize: 14,
+              );
+            },
+            loading: () {});
+      },
+    );
+
+    ref.listen(
+      signUpNotifierProvider,
+      (previous, next) {
+        next.when(
+            data: (data) async {
+              if (data != null) {
+                await Future.delayed(Duration(seconds: 2));
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TabsScreen(),
+                  ),
+                );
+              }
+            },
+            error: (e, stackTrace) {
+              print(e);
+              String message = '';
+              if (e == 'weak-password') {
+                message = 'The password provided is too weak';
+              } else if (e == 'email-already-in-use') {
+                message = 'An account already exists with that email';
+              } else {
+                message = 'Something went wrong';
+              }
+              Fluttertoast.showToast(
+                msg: message,
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.SNACKBAR,
+                backgroundColor: Colors.black54,
+                textColor: Colors.white,
+                fontSize: 14,
+              );
+            },
+            loading: () {});
+      },
+    );
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(137, 115, 115, 116),
       body: Center(
@@ -138,70 +213,15 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
                             onPressed: () async {
                               if (_formkey.currentState!.validate()) {
                                 if (accountExists) {
-                                  try {
-                                    await _signUp.createNewUser(
-                                      email: _emailController.text,
-                                      password: _passwordController.text,
-                                    );
-
-                                    await Future.delayed(Duration(seconds: 2));
-
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => TabsScreen(),
-                                      ),
-                                    );
-                                  } on FirebaseAuthException catch (e) {
-                                    String message = '';
-                                    if (e.code == 'weak-password') {
-                                      message =
-                                          'The password provided is too weak';
-                                    } else if (e.code ==
-                                        'email-already-in-use') {
-                                      message =
-                                          'An account already exists with that email';
-                                    }
-                                    Fluttertoast.showToast(
-                                      msg: message,
-                                      toastLength: Toast.LENGTH_LONG,
-                                      gravity: ToastGravity.SNACKBAR,
-                                      backgroundColor: Colors.black54,
-                                      textColor: Colors.white,
-                                      fontSize: 14,
-                                    );
-                                  }
+                                  await _signUp.createNewUser(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
                                 } else {
-                                  try {
-                                    await _login.loginUser(
-                                      email: _emailController.text,
-                                      password: _passwordController.text,
-                                    );
-
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => TabsScreen(),
-                                      ),
-                                    );
-                                  } on FirebaseAuthException catch (e) {
-                                    String message = '';
-                                    if (e.code == 'invalid-email') {
-                                      message = 'No user found for that email';
-                                    } else if (e.code == 'invalid-credential') {
-                                      message =
-                                          'Wrong password provided for that user';
-                                    }
-
-                                    Fluttertoast.showToast(
-                                      msg: message,
-                                      toastLength: Toast.LENGTH_LONG,
-                                      gravity: ToastGravity.SNACKBAR,
-                                      backgroundColor: Colors.black54,
-                                      textColor: Colors.white,
-                                      fontSize: 14,
-                                    );
-                                  }
+                                  await _login.loginUser(
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
                                 }
                               }
                             },
